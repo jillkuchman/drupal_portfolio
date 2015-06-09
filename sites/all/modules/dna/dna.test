@@ -35,6 +35,10 @@
             $message = 'An input of AA returns TT';
             $this->assertIdentical($result, 'TT');
 
+            $result = dna_sequencer('ATCG');
+            $message = 'An input of ATCG returns TAGC';
+            $this->assertIdentical($result, 'TAGC');
+
 
 
         }
