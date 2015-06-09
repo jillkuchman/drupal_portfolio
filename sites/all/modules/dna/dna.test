@@ -2,7 +2,8 @@
 
     class testDNASequencer extends DrupalUnitTestCase {
 
-        public static function getInfo() {
+        public static function getInfo()
+        {
             return array(
                 'name' => 'DNA Sequencer Unit Test',
                 'description' => 'Tests that the dna_sequencer function outputs the other half of the nucleotide correctly.',
@@ -10,7 +11,8 @@
             );
         }
 
-        function test_dna_sequencer(){
+        function test_dna_sequencer()
+        {
             $result = dna_sequencer('A');
             $message = 'An input of A returns T';
             $this->assertIdentical($result, 'T');
@@ -38,11 +40,36 @@
             $result = dna_sequencer('ATCG');
             $message = 'An input of ATCG returns TAGC';
             $this->assertIdentical($result, 'TAGC');
-
-
-
         }
     }
+
+
+    class testDNAFunctional extends DrupalWebTestCase
+    {
+        public static function getInfo()
+        {
+            return array(
+                'name' => 'DNA Module Functional Tests',
+                'description' => 'Tests the DNA module.',
+                'group' => 'Epicodus Assessment',
+            );
+        }
+
+        public function setUp()
+        {
+            parent::setUp(array('dna'));
+            $info['dna_input'] = 'GATTACA';
+            $this->drupalPost('dna', $info, t('Go'));
+        }
+
+        public function testDNA()
+        {
+            $this->drupalGet('dna_success');
+            $this->assertText('CTAATGT', 'DNA successfully sequenced.');
+        }
+
+    }
+
 
 
 ?>

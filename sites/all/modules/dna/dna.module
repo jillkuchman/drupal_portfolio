@@ -1,6 +1,60 @@
 <?php
 
-    function dna_sequencer($input){
+    function dna_menu()
+    {
+        $items = array();
+
+        $items['dna'] = array(
+            'title' => 'DNA Sequencer',
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('dna_form'),
+            'access callback' => TRUE,
+            'type' => MENU_NORMAL_ITEM,
+        );
+
+        $items['dna_success'] = array(
+            'title' => 'DNA Translation Complete',
+            'page callback' => 'dna_success',
+            'access callback' => TRUE,
+            'type' => MENU_CALLBACK,
+        );
+
+        return $items;
+    }
+
+    function dna_form()
+    {
+        $form['dna_input'] = array(
+            '#type' => 'textfield',
+            '#element_validate' => array('element_validate_valid_dna_input'),
+            '#required' => TRUE,
+        );
+
+        $form['submit'] = array(
+            '#type' => 'submit',
+            '#value' => 'Go',
+        );
+
+        return $form;
+    }
+
+    function dna_form_submit($form, &$form_state)
+    {
+        $input = $form_state['values']['dna_input'];
+        $output = dna_sequencer($input);
+        $_SESSION['output'] = $output;
+        $form_state['redirect'] = 'dna_success';
+    }
+
+    function dna_success()
+    {
+        $output = $_SESSION['output'];
+        return $output;
+    }
+
+
+    function dna_sequencer($input)
+    {
         $input_uc = strtoupper($input);
         $output = '';
 
@@ -24,5 +78,19 @@
             }
         }
             return $output;
+    }
+
+    function element_validate_valid_dna_input($element)
+    {
+        $validate = TRUE;
+        $element_uc = strtoupper($element['#value']);
+        for ($i = 0; $i < strlen($element_uc); $i++){
+            if ($element_uc[$i] != 'A' && $element_uc[$i] != 'T' && $element_uc[$i] != 'C' && $element_uc[$i] != 'G'){
+                $validate = FALSE;
+            }
+        }
+        if (!$validate){
+            form_error($element, t('Input must only contain nucleotides that exist (A, T, C, G)'));
+        }
     }
 
