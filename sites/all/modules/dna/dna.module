@@ -4,23 +4,25 @@
         $input_uc = strtoupper($input);
         $output = '';
 
-        switch ($input_uc) {
-            case 'A':
-                $output = 'T';
-                break;
-            case 'T':
-                $output = 'A';
-                break;
-            case 'C':
-                $output = 'G';
-                break;
-            case 'G':
-                $output = 'C';
-                break;          
-            default:
-                $output = '';
-                break;
+        for ($i=0; $i < strlen($input); $i++){
+            switch ($input_uc[$i]) {
+                case 'A':
+                    $output .= 'T';
+                    break;
+                case 'T':
+                    $output .= 'A';
+                    break;
+                case 'C':
+                    $output .= 'G';
+                    break;
+                case 'G':
+                    $output .= 'C';
+                    break;          
+                default:
+                    $output .= '';
+                    break;
+            }
         }
-        return $output;
+            return $output;
     }
 
