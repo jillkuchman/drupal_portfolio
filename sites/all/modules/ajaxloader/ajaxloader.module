@@ -1,15 +1,15 @@
 <?php
-function ajaxmodule_menu() {
+function ajaxloader_menu() {
     $items['path-to-ajax/%/%'] = array(
             'access arguments' => array('access content'),
-            'page callback' => 'ajaxmodule_ajax_callback',
+            'page callback' => 'ajaxloader_ajax_callback',
             'page arguments' => array(1,2),
             'type' => MENU_CALLBACK,
     );
     return $items;
 }
 
-function ajaxmodule_ajax_callback($js, $node_id) {
+function ajaxloader_ajax_callback($js, $node_id) {
   $node = node_load($node_id);
 
   if ($js == 'nojs') {
@@ -20,7 +20,8 @@ function ajaxmodule_ajax_callback($js, $node_id) {
   $html = render($build);
 
   $commands = array();
-  $commands[] = ajax_command_html('#ajaxmodule-ajax-wrapper', $html);
+  $commands[] = ajax_command_html('#ajaxloader-ajax-wrapper', $html);
 
   print ajax_render($commands);
   exit;
+}

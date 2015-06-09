@@ -1,0 +1,7 @@
+name = DNA Sequencer
+description = Generates the other half of an input nucleotide.
+package = Epicodus Assessment
+core = 7.x
+dependencies = simpletest
+files[] = dna.test
+files[] = dna.module
