@@ -8,7 +8,7 @@ Advanced Drupal Assessment for Epicodus
 
 ###Description
 
-This is a personal portfolio website created in Drupal 7. It includes custom modules created for Epicodus, including a DNA sequencer also created for this assessment. It also uses AJAX to display blog entries and includes a custom content type for portfolio pieces.
+This is a personal portfolio website created in Drupal 7. It includes custom modules created for Epicodus, including a DNA sequencer with unit and functional testing, also created for this assessment. It also uses AJAX to display blog entries and includes a custom content type for portfolio pieces.
 
 ###Usernames and Passwords
 DATABASE
