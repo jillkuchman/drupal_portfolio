@@ -1,0 +1,105 @@
+<?php
+
+global $base_url;
+
+
+function queenattack_menu(){
+    $items = array();
+    $items['queen_attack'] = array(
+        'title' => 'Queen Attack',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('queenattack_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['attack_result'] = array(
+        'title' => 'ATTAAAAAAAACK!!!',
+        'page callback' => 'attack_result',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    $items['different_spaces'] = array(
+        'title' => 'YO',
+        'page callback' => 'different_spaces',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+
+    return $items;
+}
+
+function queenattack_form() {
+    $form['x1'] = array(
+        '#title' => 'Queen\'s X-Coordinate',
+        '#type' => 'textfield',
+        '#element_validate' => array('attack_range'),
+        '#required' => TRUE,
+    );
+    $form['y1'] = array(
+        '#title' => 'Queen\'s Y-Coordinate',
+        '#type' => 'textfield',
+        '#element_validate' => array('attack_range'),
+        '#required' => TRUE,
+    );
+    $form['x2'] = array(
+        '#title' => 'Target\'s X-Coordinate',
+        '#type' => 'textfield',
+        '#element_validate' => array('attack_range'),
+        '#required' => TRUE,
+    );
+    $form['y2'] = array(
+        '#title' => 'Target\'s Y-Coordinate',
+        '#type' => 'textfield',
+        '#element_validate' => array('attack_range'),
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Attack!'
+    );
+    return $form;
+}
+
+function queenattack_form_submit($form, &$form_state){
+    $x1 = $form_state['values']['x1'];
+    $y1 = $form_state['values']['y1'];
+    $x2 = $form_state['values']['x2'];
+    $y2 = $form_state['values']['y2'];
+
+    $x_difference = $x2 - $x1;
+    $y_difference = $y2 - $y1;
+
+    $_SESSION['attack'] = 0;
+
+    if ($x_difference == 0 && $y_difference == 0) {
+        $form_state['redirect'] = 'different_spaces';
+    }
+    else {
+        if ($x_difference == 0 || $y_difference == 0 || $x_difference == $y_difference) {
+            $_SESSION['attack'] = 1;
+        }
+        $form_state['redirect'] = 'attack_result';
+    }
+}
+
+function attack_range($element){
+    if($element['#value'] < 1 || $element['#value'] > 8 ){
+        form_error($element, t('Have you ever seen a chess board?  8 spaces, tops.'));
+    }
+}
+
+function different_spaces(){
+    return "<a href='/queen_attack'>Different starting spaces, please.</a>";
+}
+
+
+function attack_result() {
+    $attack = $_SESSION['attack'];
+    if ($attack == 1) {
+        return "<img src='sites/all/modules/queen_attack_module/img/Freddie-Mercury.jpg'/>
+                <audio autoplay><source src='sites/all/modules/queen_attack_module/bites.mp3' type='audio/mpeg'></audio>";
+    }
+    else {
+        return "Just kidding.";
+    }
+}
