@@ -1,0 +1,11 @@
+<?php
+
+    function dna_sequencer($input){
+        $output = '';
+        if($input === 'A'){
+            $output = 'T';
+        }
+
+        return $output;
+    }
+

@@ -1,0 +1,21 @@
+<?php
+
+    class testDNASequencer extends DrupalUnitTestCase {
+
+        public static function getInfo() {
+            return array(
+                'name' => 'DNA Sequencer Unit Test',
+                'description' => 'Tests that the dna_sequencer function outputs the other half of the nucleotide correctly.',
+                'group' => 'Epicodus Assessment',
+            );
+        }
+
+        function test_dna_sequencer(){
+            $result = dna_sequencer('A');
+            $message = 'An input of A returns T';
+            $this->assertIdentical($result, 'T');
+        }
+    }
+
+
+?>
