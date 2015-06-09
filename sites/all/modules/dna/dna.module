@@ -1,8 +1,9 @@
 <?php
 
     function dna_sequencer($input){
+        $input_uc = strtoupper($input);
         $output = '';
-        if($input === 'A'){
+        if($input_uc === 'A'){
             $output = 'T';
         }
 
