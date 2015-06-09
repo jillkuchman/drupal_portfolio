@@ -10,7 +10,10 @@
                 break;
             case 'T':
                 $output = 'A';
-                break;            
+                break;
+            case 'C':
+                $output = 'G';
+                break;          
             default:
                 $output = '';
                 break;
