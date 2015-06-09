@@ -13,6 +13,9 @@
                 break;
             case 'C':
                 $output = 'G';
+                break;
+            case 'G':
+                $output = 'C';
                 break;          
             default:
                 $output = '';
