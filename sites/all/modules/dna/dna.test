@@ -19,6 +19,9 @@
             $message = 'An input of a returns T';
             $this->assertIdentical($result, 'T');
 
+            $result = dna_sequencer('T');
+            $message = 'An input of T returns A';
+            $this->assertIdentical($result, 'A');
         }
     }
 
